@@ -169,9 +169,17 @@ format:
 ###############################################################################
 ###                                Docker                                   ###
 ###############################################################################
+docker-build-all:
+	docker buildx build --platform linux/amd64,linux/arm64 -t anvztor/goat:latest --push .
+
+docker-build:
+	docker buildx build --platform linux/amd64 -t anvztor/goat:latest --load .
+
+docker-build-x:
+	docker buildx build --platform linux/arm64 -t anvztor/goat:latest --load .
 
 .PHONY: all build-linux install format lint draw-deps clean build \
-	docker-build-debug docker-build-hermes docker-build-all
+	docker-build-all docker-build docker-build-x
 
 
 ###############################################################################
